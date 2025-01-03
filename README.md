@@ -1,11 +1,3 @@
-The repository description and metadata have been retrieved. However, fetching the list of files in the repository failed as the endpoint is not supported by the GitHub API tool.
-
-I'll proceed with the available information to draft the README content.
-
-### README Content
-
-# Gpt2-token-prob
-
 Tokenization and next token probability using GPT2.
 
 ## Introduction
