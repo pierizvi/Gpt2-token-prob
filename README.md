@@ -19,11 +19,7 @@ To install the required dependencies, run the following commands:
 git clone https://github.com/pierizvi/Gpt2-token-prob.git
 
 # Navigate to the repository directory
-cd Gpt2-token-prob
-
-# Install dependencies (if any)
-# For example, if using Python
-pip install -r requirements.txt
+cd Gpt2-token-prob/gpt_visualizer
 ```
 
 ## Usage
@@ -31,11 +27,8 @@ pip install -r requirements.txt
 Provide instructions on how to use the repository. For example:
 
 ```bash
-# Run the tokenization script
-python tokenize.py
-
-# Run the next token probability script
-python next_token_prob.py
+# Run whole
+sh run.sh
 ```
 
 ## Contributing
