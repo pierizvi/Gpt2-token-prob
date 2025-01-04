@@ -1,48 +1,76 @@
-### Tokenization and next token probability using GPT2.
+### GPT2-token-prob
 
-## Introduction
-
-This repository provides an implementation for tokenizing text and calculating the next token probability using GPT2. It is designed to help users understand and utilize GPT2's tokenization and probability prediction capabilities.
+A web application that visualizes GPT model token generation and probabilities in real-time. Built with React frontend and Python backend.
 
 ## Features
 
-- Tokenization of input text using GPT2.
-- Calculation of next token probabilities.
-- Implementation in JavaScript, Python, HTML, CSS, and Shell.
+- Interactive text generation from prompts
+- Visual token nodes graph with interaction 
+- Token probability analysis
+- Real-time decoding visualization
+- Customizable generation parameters
 
-## Installation
+## Project Structure
 
-To install the required dependencies, run the following commands:
+```
+Gpt2-token-prob/
+├──gpt_visualizer/
+                  ├──frontend/           # React application
+                  └── backend/           # Python Flask API
 
-```bash
-# Clone the repository
-git clone https://github.com/pierizvi/Gpt2-token-prob.git
-
-# Navigate to the repository directory
-cd Gpt2-token-prob/gpt_visualizer
 ```
 
-## Usage
+## Getting Started
 
-Provide instructions on how to use the repository. For example:
+### Prerequisites
 
-```bash
-# Run whole
-sh run.sh
+- Node.js and npm
+- Python 3.x
+- Virtual environment (venv)
+
+### Installation
+
+1. **Backend Setup**
+```sh
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
-## Contributing
+2. **Frontend Setup**
+```sh
+cd frontend
+npm install
+```
 
-Contributions are welcome! Please fork the repository and create a pull request to contribute.
+### Running the Application
+
+1. Start the backend server:
+```sh
+cd backend
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+./run.sh  # On Windows: run.bat
+```
+
+2. Start the frontend development server:
+```sh
+cd frontend
+npm start
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000)
+
+## Development
+
+- Frontend is built with React and uses [Material-UI](https://mui.com/) for components
+- Backend uses Flask for API endpoints
+- Token visualization implemented using React-based graph visualization
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 
-## Acknowledgments
 
-- Special thanks to the contributors and the open-source community.
-
----
-
-Please review this draft and let me know if you would like to add or modify any sections. Once finalized, I can help you commit and push the new README file to the repository.
+This README provides a comprehensive overview of your GPT Visualizer project, including setup instructions and project structure. The frontend code in [App.js](frontend/src/App.js) and other components work together with the Flask backend to create an interactive visualization of GPT model token generation.
+This README provides a comprehensive overview of your GPT Visualizer project, including setup instructions and project structure. The frontend code in [App.js](frontend/src/App.js) and other components work together with the Flask backend to create an interactive visualization of GPT model token generation.
