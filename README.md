@@ -5,7 +5,7 @@ A web application that visualizes GPT model token generation and probabilities i
 ## Features
 
 - Interactive text generation from prompts
-- Visual token graph representation 
+- Visual token nodes graph with interaction 
 - Token probability analysis
 - Real-time decoding visualization
 - Customizable generation parameters
