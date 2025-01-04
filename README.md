@@ -70,7 +70,3 @@ The application will be available at [http://localhost:3000](http://localhost:30
 ## License
 
 This project is licensed under the MIT License.
-
-
-This README provides a comprehensive overview of your GPT Visualizer project, including setup instructions and project structure. The frontend code in [App.js](frontend/src/App.js) and other components work together with the Flask backend to create an interactive visualization of GPT model token generation.
-This README provides a comprehensive overview of your GPT Visualizer project, including setup instructions and project structure. The frontend code in [App.js](frontend/src/App.js) and other components work together with the Flask backend to create an interactive visualization of GPT model token generation.
