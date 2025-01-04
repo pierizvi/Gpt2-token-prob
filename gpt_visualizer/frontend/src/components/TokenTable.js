@@ -1,7 +1,11 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
-function TokenTable({ tokens }) {
+const TokenTable = ({ tokens = [], probabilities = [] }) => {
+  if (!Array.isArray(tokens) || !Array.isArray(probabilities)) {
+    return null;
+  }
+  
   return (
     <Table>
       <TableHead>

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
-from .models import Prompt
+from models import Prompt
 import torch
 
 router = APIRouter()
