@@ -5,10 +5,49 @@ import TokenTable from './components/TokenTable';
 import PromptInput from './components/PromptInput';
 import DecodingControls from './components/DecodingControls';
 import axios from 'axios';
+import './App.css';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    primary: {
+      main: '#000000',
+    },
+    secondary: {
+      main: '#404040',
+    },
+    background: {
+      default: '#ffffff',
+      paper: '#f5f5f5',
+    },
+  },
+  typography: {
+    fontFamily: '"Space Mono", "Courier New", monospace',
+    h3: {
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      letterSpacing: '0.1em',
+      marginBottom: '2rem',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          textTransform: 'none',
+          padding: '0.75rem 2rem',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 0,
+          },
+        },
+      },
+    },
   },
 });
 
@@ -40,13 +79,40 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-        <PromptInput onGenerate={handleGenerate} />
-        <DecodingControls />
-        <TokenGraph data={{ nodes: tokens, links: [] }} />
-        <TokenTable tokens={probabilities} />
-        <div>
-          <h3>Generated Text:</h3>
-          <p>{generatedText}</p>
+        <div className="prompt-section">
+          <div className="controls-section">
+            <div className="prompt-input">
+              <PromptInput onGenerate={handleGenerate} />
+            </div>
+            <div className="decoding-controls">
+              <DecodingControls />
+            </div>
+          </div>
+        </div>
+
+        <div className="results-section">
+          {tokens.length > 0 && (
+            <div>
+              <h3>Token Graph</h3>
+              <TokenGraph data={{ nodes: tokens, links: [] }} />
+            </div>
+          )}
+          
+          {probabilities.length > 0 && (
+            <div>
+              <h3>Token Probabilities</h3>
+              <TokenTable tokens={probabilities} />
+            </div>
+          )}
+          
+          {generatedText && (
+            <div>
+              <h3>Generated Text</h3>
+              <div className="generated-text">
+                {generatedText}
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     </ThemeProvider>
