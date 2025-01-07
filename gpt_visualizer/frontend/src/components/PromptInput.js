@@ -23,7 +23,7 @@ function PromptInput({ onGenerate }) {
       <Button 
         variant="contained" 
         color="primary" 
-        onClick={() => prompt.trim() && onGenerate(prompt, 'greedy')}
+        onClick={() => prompt.trim() && onGenerate(prompt)}
         sx={{ 
           alignSelf: 'flex-start',
           minWidth: '120px'

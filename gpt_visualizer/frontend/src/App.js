@@ -4,7 +4,6 @@ import TokenGraph from './components/TokenGraph';
 import TokenTable from './components/TokenTable';
 import PromptInput from './components/PromptInput';
 import DecodingControls from './components/DecodingControls';
-import axios from 'axios';
 import './App.css';
 
 const theme = createTheme({
@@ -52,26 +51,30 @@ const theme = createTheme({
 });
 
 function App() {
+  const [generatedText, setGeneratedText] = useState('');
   const [tokens, setTokens] = useState([]);
   const [probabilities, setProbabilities] = useState([]);
-  const [generatedText, setGeneratedText] = useState('');
+  const [samplingMethod, setSamplingMethod] = useState('greedy');
 
-  const handleGenerate = async (prompt, method) => {
+  const handleGenerate = async (prompt) => {
     try {
-      console.log('Sending request to generate text with prompt:', prompt);
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/generate`, { prompt });
-      console.log('Received response:', response.data);
-      setGeneratedText(response.data.generated_text);
-      setProbabilities(response.data.token_probabilities);
-
-      // Convert tokenized prompt text to nodes for the graph
-      const tokenNodes = response.data.tokenized_prompt.map((token, index) => ({
-        id: index,
-        text: token,
-      }));
-      setTokens(tokenNodes);
+      const response = await fetch('http://localhost:8000/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          prompt: prompt,
+          method: samplingMethod
+        }),
+      });
+      
+      const data = await response.json();
+      setGeneratedText(data.generated_text); // Match backend response keys
+      setTokens(data.tokenized_prompt.map(text => ({ text }))); // Format tokens for graph
+      setProbabilities(data.token_probabilities);
     } catch (error) {
-      console.error('Error generating text:', error);
+      console.error('Error:', error);
     }
   };
 
@@ -82,10 +85,13 @@ function App() {
         <div className="prompt-section">
           <div className="controls-section">
             <div className="prompt-input">
-              <PromptInput onGenerate={handleGenerate} />
+              <PromptInput onGenerate={(prompt) => handleGenerate(prompt)} />
             </div>
             <div className="decoding-controls">
-              <DecodingControls />
+              <DecodingControls 
+                method={samplingMethod}
+                onMethodChange={setSamplingMethod}
+              />
             </div>
           </div>
         </div>

@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
 
-function DecodingControls() {
-  const [method, setMethod] = useState('greedy');
-
+function DecodingControls({ method, onMethodChange }) {
   return (
     <Box sx={{ minWidth: 200 }}>
       <FormControl variant="outlined" fullWidth>
         <InputLabel>Sampling Method</InputLabel>
         <Select
           value={method}
-          onChange={(e) => setMethod(e.target.value)}
+          onChange={(e) => onMethodChange(e.target.value)}
           label="Sampling Method"
         >
           <MenuItem value="greedy">Greedy</MenuItem>

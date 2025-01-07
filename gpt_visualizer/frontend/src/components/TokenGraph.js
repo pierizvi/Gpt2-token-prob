@@ -4,6 +4,14 @@ import * as d3 from 'd3';
 function TokenGraph({ data }) {
   const svgRef = useRef();
   
+  const formatTokenDisplay = (text) => {
+    // If token starts with Ġ, show a visible space indicator
+    if (text.startsWith('Ġ')) {
+      return `·${text.slice(1)}`; // Using middle dot to show space
+    }
+    return text;
+  };
+
   useEffect(() => {
     if (!data.nodes.length) return;
 
@@ -129,7 +137,7 @@ function TokenGraph({ data }) {
       .style("filter", "drop-shadow(0 0 4px rgba(147, 112, 219, 0.4))");
 
     nodes.append("text")
-      .text(d => d.text)
+      .text(d => formatTokenDisplay(d.text))
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
       .style("font-family", "Space Mono, monospace")
@@ -146,6 +154,13 @@ function TokenGraph({ data }) {
       .style("font-size", "10px")
       .style("fill", "rgba(147, 112, 219, 0.8)")
       .style("pointer-events", "none");
+
+    // Enhanced tooltips
+    nodes.append("title")
+      .text(d => `Token: "${d.text}"${d.text.startsWith('Ġ') ? 
+        '\n(starts with space)' : ''}`);
+
+
 
     simulation.on("tick", () => {
       // Update node positions
@@ -167,16 +182,46 @@ function TokenGraph({ data }) {
   }, [data]);
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '400px',
-      maxWidth: '800px',
-      overflow: 'hidden',
-      padding: '1rem',
-      borderRadius: '8px',
-      backgroundColor: '#000000'
-    }}>
-      <svg ref={svgRef} />
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+      <div style={{ 
+        width: '100%', 
+        height: '400px',
+        maxWidth: '800px',
+        overflow: 'hidden',
+        padding: '1rem',
+        borderRadius: '8px',
+        backgroundColor: '#000000'
+      }}>
+        <svg ref={svgRef} />
+      </div>
+      
+      <div style={{
+        color: '#fff',
+        fontFamily: 'Space Mono, monospace',
+        padding: '1rem',
+        fontSize: '12px',
+        lineHeight: '1.6',
+        maxWidth: '200px',
+        backgroundColor: '#000000',
+        borderRadius: '8px',
+        border: '1px solid rgba(147, 112, 219, 0.3)'
+      }}>
+        <div style={{ marginBottom: '1rem' }}>
+          <span style={{ 
+            fontWeight: 'bold', 
+            color: 'rgba(147, 112, 219, 1)', // Full opacity
+            textShadow: '0 0 4px rgba(147, 112, 219, 0.4)' // Glow effect
+          }}>
+            · indicates leading space in token
+          </span>
+        </div>
+        <div style={{ 
+          color: '#ffffff', // Full white
+          opacity: 0.9 // Slightly less opacity for description
+        }}>
+          Connected nodes show the sequence of tokenization for your input prompt.
+        </div>
+      </div>
     </div>
   );
 }

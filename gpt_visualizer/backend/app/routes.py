@@ -23,7 +23,28 @@ async def probabilities(prompt: Prompt):
 @router.post("/generate")
 async def generate(prompt: Prompt):
     inputs = tokenizer(prompt.prompt, return_tensors="pt")
-    outputs = model.generate(**inputs, output_scores=True, return_dict_in_generate=True, max_new_tokens=50)
+    
+    # Add generation parameters based on method
+    generation_params = {
+        "output_scores": True,
+        "return_dict_in_generate": True,
+        "max_new_tokens": 50
+    }
+    
+    if prompt.method == "sampling":
+        generation_params.update({
+            "do_sample": True,
+            "top_k": 50,
+            "top_p": 0.9,
+            "temperature": 0.7
+        })
+    elif prompt.method == "beam":
+        generation_params.update({
+            "num_beams": 5,
+            "early_stopping": True
+        })
+    
+    outputs = model.generate(**inputs, **generation_params)
     generated_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
     
     # Tokenize the generated text
