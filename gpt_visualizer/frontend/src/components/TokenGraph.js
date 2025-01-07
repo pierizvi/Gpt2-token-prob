@@ -182,44 +182,15 @@ function TokenGraph({ data }) {
   }, [data]);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-      <div style={{ 
-        width: '100%', 
-        height: '400px',
-        maxWidth: '800px',
-        overflow: 'hidden',
-        padding: '1rem',
-        borderRadius: '8px',
-        backgroundColor: '#000000'
-      }}>
+    <div className="token-visualization">
+      <div className="graph-container">
         <svg ref={svgRef} />
       </div>
       
-      <div style={{
-        color: '#fff',
-        fontFamily: 'Space Mono, monospace',
-        padding: '1rem',
-        fontSize: '12px',
-        lineHeight: '1.6',
-        maxWidth: '200px',
-        backgroundColor: '#000000',
-        borderRadius: '8px',
-        border: '1px solid rgba(147, 112, 219, 0.3)'
-      }}>
-        <div style={{ marginBottom: '1rem' }}>
-          <span style={{ 
-            fontWeight: 'bold', 
-            color: 'rgba(147, 112, 219, 1)', // Full opacity
-            textShadow: '0 0 4px rgba(147, 112, 219, 0.4)' // Glow effect
-          }}>
-            · indicates leading space in token
-          </span>
-        </div>
-        <div style={{ 
-          color: '#ffffff', // Full white
-          opacity: 0.9 // Slightly less opacity for description
-        }}>
-          Connected nodes show the sequence of tokenization for your input prompt.
+      <div className="graph-legend">
+        <div className="legend-item">
+          <span className="legend-symbol">·</span>
+          <span className="legend-text">indicates leading space in token</span>
         </div>
       </div>
     </div>
