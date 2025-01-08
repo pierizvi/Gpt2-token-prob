@@ -1,4 +1,4 @@
-### GPT2-token-prob
+### TOKEN FLOW
 
 A web application that visualizes GPT model token generation and probabilities in real-time. Built with React frontend and Python backend.
 
