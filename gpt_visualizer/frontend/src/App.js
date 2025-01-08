@@ -79,49 +79,54 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Container>
-        <div className="prompt-section">
-          <div className="controls-section">
-            <div className="prompt-input">
-              <PromptInput onGenerate={(prompt) => handleGenerate(prompt)} />
-            </div>
-            <div className="decoding-controls">
-              <DecodingControls 
-                method={samplingMethod}
-                onMethodChange={setSamplingMethod}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="results-section">
-          {tokens.length > 0 && (
-            <div>
-              <h3>Token Graph</h3>
-              <TokenGraph data={{ nodes: tokens, links: [] }} />
-            </div>
-          )}
-          
-          {probabilities.length > 0 && (
-            <div>
-              <h3>Token Probabilities</h3>
-              <TokenTable tokens={probabilities} />
-            </div>
-          )}
-          
-          {generatedText && (
-            <div>
-              <h3>Generated Text</h3>
-              <div className="generated-text">
-                {generatedText}
+    <div className="App">
+      <div className="app-title">
+        <h1>Token Flow</h1>
+      </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <div className="prompt-section">
+            <div className="controls-section">
+              <div className="prompt-input">
+                <PromptInput onGenerate={(prompt) => handleGenerate(prompt)} />
+              </div>
+              <div className="decoding-controls">
+                <DecodingControls 
+                  method={samplingMethod}
+                  onMethodChange={setSamplingMethod}
+                />
               </div>
             </div>
-          )}
-        </div>
-      </Container>
-    </ThemeProvider>
+          </div>
+
+          <div className="results-section">
+            {tokens.length > 0 && (
+              <div>
+                <h3>Token Graph</h3>
+                <TokenGraph data={{ nodes: tokens, links: [] }} />
+              </div>
+            )}
+            
+            {probabilities.length > 0 && (
+              <div>
+                <h3>Token Probabilities</h3>
+                <TokenTable tokens={probabilities} />
+              </div>
+            )}
+            
+            {generatedText && (
+              <div>
+                <h3>Generated Text</h3>
+                <div className="generated-text">
+                  {generatedText}
+                </div>
+              </div>
+            )}
+          </div>
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }
 
