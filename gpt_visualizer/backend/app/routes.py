@@ -45,7 +45,10 @@ async def generate(prompt: Prompt):
         })
     
     outputs = model.generate(**inputs, **generation_params)
-    generated_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
+    generated_text = tokenizer.decode(
+        outputs.sequences[0][inputs['input_ids'].shape[-1]:], 
+        skip_special_tokens=True
+    )
     
     # Tokenize the generated text
     tokenized_text = tokenizer.tokenize(generated_text)

@@ -26,6 +26,7 @@ const theme = createTheme({
       fontWeight: 400,
       letterSpacing: '0.1em',
       marginBottom: '2rem',
+      textAlign: 'left' 
     },
   },
   components: {
