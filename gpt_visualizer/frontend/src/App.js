@@ -71,8 +71,8 @@ function App() {
       });
       
       const data = await response.json();
-      setGeneratedText(data.generated_text); // Match backend response keys
-      setTokens(data.tokenized_prompt.map(text => ({ text }))); // Format tokens for graph
+      setGeneratedText(data.generated_text); 
+      setTokens(data.tokenized_prompt.map(text => ({ text }))); 
       setProbabilities(data.token_probabilities);
     } catch (error) {
       console.error('Error:', error);
