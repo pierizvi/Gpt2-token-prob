@@ -7,7 +7,7 @@ function TokenGraph({ data }) {
   const formatTokenDisplay = (text) => {
     // If token starts with Ġ, show a visible space indicator
     if (text.startsWith('Ġ')) {
-      return `·${text.slice(1)}`; // Using middle dot to show space
+      return `·${text.slice(1)}`; 
     }
     return text;
   };
@@ -15,7 +15,7 @@ function TokenGraph({ data }) {
   useEffect(() => {
     if (!data.nodes.length) return;
 
-    // Clear previous graph
+
     d3.select(svgRef.current).selectAll("*").remove();
 
     const width = 600;
@@ -37,9 +37,13 @@ function TokenGraph({ data }) {
       target: i + 1,
     }));
 
+    // Inverse node sizing - longer text = smaller nodes
+    const fontSize = d3.scaleLog()
+      .domain([1, d3.max(data.nodes, d => d.text.length)])
+      .range([30, 15]);  // Larger range for more variation
+
     data.nodes.forEach(node => {
-      node.radius = Math.min(maxRadius, 
-        Math.max(minRadius, baseRadius - (node.text.length / 2)));
+      node.radius = fontSize(node.text.length);
     });
 
     const svg = d3.select(svgRef.current)
@@ -71,14 +75,20 @@ function TokenGraph({ data }) {
 
     const g = svg.append("g");
 
-    // Enhanced force simulation
+    // Enhanced celestial force simulation
     const simulation = d3.forceSimulation(data.nodes)
-      .force("link", d3.forceLink(links).distance(80))
-      .force("charge", d3.forceManyBody().strength(-150))
-      .force("collide", d3.forceCollide().radius(d => d.radius + 10))
-      .force("center", d3.forceCenter(0, 0))
-      .force("x", d3.forceX().strength(0.07))
-      .force("y", d3.forceY().strength(0.07));
+      .force("link", d3.forceLink(links)
+        .distance(d => (d.source.radius + d.target.radius) * 2))
+      .force("charge", d3.forceManyBody()
+        .strength(d => -150 * Math.sqrt(d.radius)))
+      .force("collide", d3.forceCollide()
+        .radius(d => d.radius * 1.5)
+        .strength(0.5))
+      .force("radial", d3.forceRadial(
+        d => 100 + Math.random() * 100,
+        0, 0).strength(0.8))
+      .force("x", d3.forceX().strength(0.01))
+      .force("y", d3.forceY().strength(0.01));
 
     // Add links first so they appear behind nodes
     const links_g = g.append("g")
